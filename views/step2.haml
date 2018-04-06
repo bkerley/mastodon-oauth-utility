@@ -1,0 +1,13 @@
+:markdown
+  # mastodon oauth utility
+
+  Cool, hopefully your access token is below:
+
+%h2 returned json
+%dl
+- parsed_json.each do |k, v|
+  %dt= k
+  %dd&= v.inspect
+
+%h2 raw response
+%pre= raw_body

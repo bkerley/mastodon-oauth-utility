@@ -1,0 +1,66 @@
+:markdown
+  # mastodon oauth utility
+
+  OK, now:
+
+  1. follow the authorization flow uri below
+  2. go through the mastodon flow
+  3. get the authorization code (copy it to your clipboard)
+  4. switch back to this tab and paste it in
+  5. submit this form
+  6. get the access token
+
+%h2 Authorization Flow URI
+
+%p
+  This URI opens in a new window/tab. Go through the flow on the Mastodon side,
+  and copy the authorization code when it's done.
+
+%p#redirect_uri
+  %a{href: redirect_uri, target: '_blank'}= redirect_uri
+
+%h2 exchange form
+
+%form{method: 'post', action: '/step2'}
+  %fieldset
+    %legend authorization code
+    %dl
+      %dt
+        %label{for: 'auth_code'} authorization code
+        (from the above URL)
+      %dd
+        %input#auth_code{type: 'text', name: 'auth_code'}
+  %fieldset
+    %legend ongoing authorization info
+    %p
+      This information is still used in the ongoing authorization flow. It's
+      here instead of stashed in a session or hidden field to make it obvious.
+    %p
+      Don't change it, stuff'll break.
+    %dl
+      %dt
+        %label{for: 'client_key'} client key
+      %dd
+        %input#client_key{type: 'text',
+                          name: 'client_key',
+                          value: client_key}
+      %dt
+        %label{for: 'client_secret'} client secret
+      %dd
+        %input#client_secret{type: 'text',
+                             name: 'client_secret',
+                             value: client_secret}
+
+      %dt
+        %label{for: 'instance'} instance address
+      %dd
+        %input#instance{type: 'text',
+                        name: 'instance',
+                        value: instance_base}
+      %dt
+        redirect uri
+      %dd
+        %tt urn:ietf:wg:oauth:2.0:oob
+  %fieldset
+    %legend
+      %input{type: 'submit', value: 'Get Access Token'}

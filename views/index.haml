@@ -1,0 +1,75 @@
+:markdown
+  # mastodon oauth utility
+
+  This tool is here to help you get access tokens for mastodon api clients.
+  It's not for getting the client key and client secret, it's for turning
+  those into an access token without you having to build out the whole flow
+  just to dev with.
+
+  If you have any questions, hit me up at
+  [\@bonzoesc@m.bonzoesc.net](https://m.bonzoesc.net/@bonzoesc)
+
+  ## instructions
+
+  1. fill out the form below
+  2. submit it
+  2. on the next screen, you'll have to:
+  3. follow the redirect uri
+  4. go through the mastodon flow
+  3. get the authorization code
+  4. put the authorization code on the next screen
+  5. submit that form
+  6. get the access token
+  7. put it in your app or something
+
+%h2 the form below
+
+%form{method: 'post', action: '/step1'}
+  %fieldset
+    %legend application info
+    %dl
+      %dt
+        %label{for: 'client_key'} client key
+      %dd
+        %input#client_key{type: 'text', name: 'client_key'}
+      %dt
+        %label{for: 'client_secret'} client secret
+      %dd
+        %input#client_secret{type: 'text', name: 'client_secret'}
+      %dt
+        scopes
+      %dd
+        %input#scope_read{type: 'checkbox',
+                          checked: 'checked',
+                          name: 'scope_read'}
+        %label{for: 'scope_read'} read
+        %input#scope_write{type: 'checkbox',
+                           checked: 'checked',
+                           name: 'scope_write'}
+        %label{for: 'scope_write'} write
+        %input#scope_follow{type: 'checkbox',
+                            checked: 'checked',
+                            name: 'scope_follow'}
+        %label{for: 'scope_follow'} follow
+      %dt
+        redirect uri
+      %dd
+        %tt urn:ietf:wg:oauth:2.0:oob
+        (if you don't have this configured for your app, you probably have a
+        better tool than this ready to go)
+
+  %fieldset
+    %legend your user info
+    %dl
+      %dt
+        %label{for: 'instance'} instance address
+        (the root address, like
+        %tt https://m.bonzoesc.net
+        )
+      %dd
+        %input#instance{type: 'text',
+                        name: 'instance',
+                        placeholder: 'https://m.bonzoesc.net'}
+  %fieldset
+    %legend
+      %input{type: 'submit', value: 'Start Authorization'}
